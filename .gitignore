@@ -1,0 +1,49 @@
+# 忽略配置文件
+/.idea
+/.venv
+uv.lock
+
+# 忽略 python 运行文件
+**/__pycache__
+
+# 忽略 Jupyter 笔记本文件
+*.ipynb
+
+# 忽略数据集等
+*.pth
+*.pt
+*.npy
+*.npz
+*.pkl
+*.dat
+*.mat
+*.pdf
+
+# 忽略图片视频文件
+*.jpg
+*.png
+*.svg
+*.mp4
+*.ts
+
+# 忽略其他
+*.zip
+*.rar
+*.gz
+
+# 忽略测试文件
+test1.*
+test2.*
+test3.*
+test4.*
+test5.*
+
+part_*/
+!part_main/
+
+# latex相关
+*.aux
+*.out
+*.log
+*.toc
+*.synctex
