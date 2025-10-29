@@ -29,6 +29,10 @@ uv.lock
 *.zip
 *.rar
 *.gz
+/code/data
+/code/model
+/code/logs
+/code/my_sentiment_model
 
 # 忽略测试文件
 test1.*

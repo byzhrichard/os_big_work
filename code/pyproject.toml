@@ -4,4 +4,51 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+# requires-python = ">=3.10"
+dependencies = [
+    # 基础包
+    "numpy==1.26.4",
+    "scipy==1.13.1",
+    "scikit-learn==1.5.1",
+    "pandas==2.2.2",
+    "matplotlib==3.9.2",
+	"seaborn==0.13.2",
+    # torch系列
+    "torch==2.2.2",
+    "torchvision==0.17.2",
+    "torchaudio==2.2.2",
+    # byzh系列
+    "byzh-core",
+    "byzh-extra",
+    "byzh-ai",
+    # else
+    "h5py>=3.14.0",
+    "spikingjelly>=0.0.0.0.14",
+    "tensorboard",
+    "cupy-cuda12x",
+    "timm>=1.0.19",
+    "modelscope",
+    "peft",
+    "transformers",
+    "datasets",
+]
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu121", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torchvision = [
+  { index = "pytorch-cu121", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torchaudio = [
+  { index = "pytorch-cu121", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
+explicit = true # 表示 只有在 [tool.uv.sources] 明确指定了这个索引源的包，才会使用这个源
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
