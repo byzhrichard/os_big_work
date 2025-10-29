@@ -1,6 +1,6 @@
 # 忽略配置文件
-/.idea
-/.venv
+**/.idea
+**/.venv
 uv.lock
 
 # 忽略 python 运行文件
