@@ -1,4 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-sudo\PYG{+w}{ }add\PYGZhy{}apt\PYGZhy{}repository\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
-\PYG{l+s+s2}{\PYGZdq{}deb [arch=amd64] https://mirrors.aliyun.com/docker\PYGZhy{}ce/linux/ubuntu }\PYG{k}{\PYGZdl{}(}lsb\PYGZus{}release\PYG{+w}{ }\PYGZhy{}cs\PYG{k}{)}\PYG{l+s+s2}{ stable\PYGZdq{}}
-\end{Verbatim}

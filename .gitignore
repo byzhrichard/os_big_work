@@ -50,4 +50,6 @@ part_*/
 *.log
 *.toc
 *.synctex
+**/_minted-os
+
 os.pdf

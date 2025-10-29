@@ -1,3 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-sudo\PYG{+w}{ }apt\PYGZhy{}get\PYG{+w}{ }\PYGZhy{}y\PYG{+w}{ }install\PYG{+w}{ }apt\PYGZhy{}transport\PYGZhy{}https\PYG{+w}{ }ca\PYGZhy{}certificates\PYG{+w}{ }curl\PYG{+w}{ }software\PYGZhy{}properties\PYGZhy{}common
-\end{Verbatim}
