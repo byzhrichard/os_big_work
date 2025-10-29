@@ -14,6 +14,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 model.eval()
 
+
 # =======================
 # 2. 定义预测函数
 # =======================
@@ -42,6 +43,7 @@ def predict_sentiment(texts):
 
     return predictions.cpu().numpy()
 
+
 # =======================
 # 3. 单条文本测试
 # =======================
@@ -56,29 +58,38 @@ for text, pred in zip(examples, preds):
     print(f"【{label}】 {text}")
 
 # =======================
-# 4. 可选：在测试集上评估准确率
+# 4. 在测试集上评估准确率（修正版）
 # =======================
-# 如果你想评估 ChnSentiCorp 测试集准确率，可以解开下面注释：
 
-# dataset = load_dataset('./data/lansinuote___chn_senti_corp/default/0.0.0/b0c4c119c3fb33b8e735969202ef9ad13d717e5a')
-# test_dataset = dataset["test"]
+dataset = load_dataset('./data/lansinuote___chn_senti_corp/default/0.0.0/b0c4c119c3fb33b8e735969202ef9ad13d717e5a')
+test_dataset = dataset["test"]
 
-# # 分词
-# def tokenize_function(examples):
-#     return tokenizer(examples["text"], padding="max_length", truncation=True, max_length=128)
 
-# encoded_test = test_dataset.map(tokenize_function, batched=True)
-# encoded_test.set_format(type="torch", columns=["input_ids", "attention_mask", "label"])
+# 分词
+def tokenize_function(examples):
+    return tokenizer(examples["text"], padding="max_length", truncation=True, max_length=128)
 
-# correct = 0
-# total = 0
 
-# for batch in torch.utils.data.DataLoader(encoded_test, batch_size=8):
-#     batch = {k: v.to(device) for k, v in batch.items()}
-#     with torch.no_grad():
-#         outputs = model(**batch)
-#         preds = torch.argmax(outputs.logits, dim=-1)
-#     correct += (preds == batch["label"]).sum().item()
-#     total += len(batch["label"])
+encoded_test = test_dataset.map(tokenize_function, batched=True)
+encoded_test.set_format(type="torch", columns=["input_ids", "attention_mask", "label"])
 
-# print(f"测试集准确率: {correct / total:.4f}")
+correct = 0
+total = 0
+
+for batch in torch.utils.data.DataLoader(encoded_test, batch_size=8):
+    # 分离输入和标签
+    labels = batch["label"].to(device)
+    inputs = {
+        "input_ids": batch["input_ids"].to(device),
+        "attention_mask": batch["attention_mask"].to(device)
+    }
+
+    # 前向传播
+    with torch.no_grad():
+        outputs = model(**inputs)
+        preds = torch.argmax(outputs.logits, dim=-1)
+
+    correct += (preds == labels).sum().item()
+    total += len(labels)
+
+print(f"测试集准确率: {correct / total:.4f}")

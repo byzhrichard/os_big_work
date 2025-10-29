@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{distribution}\PYG{o}{=}\PYG{k}{\PYGZdl{}(}.\PYG{+w}{ }/etc/os\PYGZhy{}release\PYG{p}{;}\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}ID\PYGZdl{}VERSION\PYGZus{}ID}\PYG{k}{)}
+curl\PYG{+w}{ }\PYGZhy{}fsSL\PYG{+w}{ }https://nvidia.github.io/libnvidia\PYGZhy{}container/gpgkey\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{p}{|}\PYG{+w}{ }sudo\PYG{+w}{ }gpg\PYG{+w}{ }\PYGZhy{}\PYGZhy{}dearmor\PYG{+w}{ }\PYGZhy{}o\PYG{+w}{ }/usr/share/keyrings/nvidia\PYGZhy{}container\PYGZhy{}toolkit\PYGZhy{}keyring.gpg
+\end{Verbatim}

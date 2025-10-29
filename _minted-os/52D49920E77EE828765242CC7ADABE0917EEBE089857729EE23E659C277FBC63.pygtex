@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+sudo\PYG{+w}{ }apt\PYGZhy{}get\PYG{+w}{ }update
+\end{Verbatim}

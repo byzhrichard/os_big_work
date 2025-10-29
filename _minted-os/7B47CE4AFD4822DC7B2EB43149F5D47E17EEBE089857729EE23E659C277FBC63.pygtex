@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+curl\PYG{+w}{ }\PYGZhy{}s\PYG{+w}{ }\PYGZhy{}L\PYG{+w}{ }https://nvidia.github.io/libnvidia\PYGZhy{}container/\PYG{n+nv}{\PYGZdl{}distribution}/libnvidia\PYGZhy{}container.list\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+sed\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}s\PYGZsh{}deb https://\PYGZsh{}deb [signed\PYGZhy{}by=/usr/share/keyrings/nvidia\PYGZhy{}container\PYGZhy{}toolkit\PYGZhy{}keyring.gpg] https://\PYGZsh{}g\PYGZsq{}}\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+sudo\PYG{+w}{ }tee\PYG{+w}{ }/etc/apt/sources.list.d/nvidia\PYGZhy{}container\PYGZhy{}toolkit.list
+\end{Verbatim}

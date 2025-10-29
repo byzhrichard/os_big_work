@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+sudo\PYG{+w}{ }apt\PYGZhy{}get\PYG{+w}{ }update
+sudo\PYG{+w}{ }apt\PYGZhy{}get\PYG{+w}{ }install\PYG{+w}{ }docker\PYGZhy{}ce\PYG{+w}{ }docker\PYGZhy{}ce\PYGZhy{}cli\PYG{+w}{ }containerd.io
+\end{Verbatim}
