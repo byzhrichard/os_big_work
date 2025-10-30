@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中文情感分析工具</title>
+    <link rel="stylesheet" href="./static/style.css">
+    <!--  其实访问的是http://127.0.0.1:8000/static/style.css  -->
+</head>
+<body>
+    <div class="container">
+        <h1>中文情感分析</h1>
+        <p>输入一段中文文本，分析其情感倾向（正面/负面）</p>
+
+        <!--  HTML表单  -->
+        <form method="post" action="/"> <!--  action="/" 表示表单提交到当前页面 -->
+            <div class="input-group">
+                <!--  使用Jinja2模板引擎来渲染表单  -->
+                <textarea name="user_text" rows="6" placeholder="请输入您要分析的文本，例如：'这个电影太好看了，演员演技很棒！'" required>{{ user_text or '' }}</textarea>
+            </div>
+            <button type="submit">分析情感</button>
+        </form>
+
+
+        {% if result %} <!--  如果后端传来的模板变量 result 存在，则显示这一块  -->
+        <div class="result-box {{ 'positive' if result.sentiment == '正面' else 'negative' }}">
+            <h2>分析结果</h2>
+            <p><strong>输入文本：</strong>"{{ result.text }}"</p>
+            <p><strong>情感倾向：</strong> <span class="sentiment-label">{{ result.sentiment }}</span></p>
+            <p><strong>置信度：</strong> {{ "%.2f"|format(result.confidence * 100) }}%</p>
+        </div>
+        {% endif %}
+
+        {% if error %} <!--  如果后端传来的模板变量 error 存在，则显示这一块  -->
+        <div class="error-box">
+            <p>出错了：{{ error }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -21,6 +21,10 @@ dependencies = [
     "byzh-core",
     "byzh-extra",
     "byzh-ai",
+    # fastapi
+    "fastapi",
+    "uvicorn[standard]",
+    "python-multipart",
     # else
     "h5py>=3.14.0",
     "spikingjelly>=0.0.0.0.14",

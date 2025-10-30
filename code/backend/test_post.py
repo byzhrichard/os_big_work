@@ -1,9 +1,3 @@
-cd ./backend
-uvicorn app:app --reload --host 0.0.0.0 --port 8000
-
-
-# api方式
-
 import requests
 
 url = "http://127.0.0.1:8000/api/predict"
