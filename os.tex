@@ -93,28 +93,147 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Docker介绍} % 宁来写，黄来补
 
+Docker是一个开源的应用容器引擎，基于Go语言开发。它允许开发者将应用及其依赖打包到一个轻量级、可移植的容器中，然后发布到任何流行的Linux或Windows操作系统的机器上。Docker容器与虚拟机相比，启动更快、资源占用更少，并且确保了运行环境的一致性。
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{src/docker.png}
-    \caption{docker架构图}
+    \includegraphics[width=0.35\textwidth]{src/docker.png}
+    \caption{docker图标}
 \end{figure}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{为什么要Docker} % 宁来写，黄来补
 
+\begin{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{src/代码环境.png}
+    \caption{docker图标}
+\end{figure}
+
+\item \textbf{实际问题}：在软件开发的生命周期中，一个应用通常需要经历开发环境、测试环境、生产环境等多个阶段。每个环境的操作系统版本、依赖库、配置文件等细微差异都可能导致应用行为不一致，这就是著名的"在我这里能运行，在你那里不能运行"的问题。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{src/代码环境差异.png}
+    \caption{docker图标}
+\end{figure}
+
+\item \textbf{场景展现}：想象这样一个场景，数据科学家小王在本地开发机上使用Python 3.8和TensorFlow 2.5成功训练了一个优秀的Bert模型，准确率达到了0.95，但当他把代码交给运维团队部署到生产服务器时，却发现代码无法运行或模型性能大幅下降。经过排查发现，生产服务器使用的是Python 3.6和TensorFlow 2.3，版本不兼容导致部分功能无法正常工作。这种"环境陷阱"不仅浪费了大量调试时间，还影响了项目的正常上线。
+
+
+\item \textbf{问题解决}：为了解决诸如此类的代码“水土不服”的问题，我们选择迁移“水土”，把环境和代码一起发送，docker就作为一个容器来装载代码和环境，它采用"环境与代码共同迁移"的策略——将应用程序与其完整的运行环境（包括系统库、依赖包、配置文件等）一同打包到一个标准化的容器中。这种容器化的交付方式，有效规避了因环境差异导致的各类兼容性问题，使得软件能够跨环境无缝迁移和运行。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{src/docker解决环境差异.png}
+    \caption{docker图标}
+\end{figure}
+
+\item \textbf{核心优势概述}：Docker的核心价值在于通过容器化技术为应用提供了一套标准化的交付和运行方案。它从根本上解决了环境不一致的难题，将应用及其所有依赖封装成一个轻量级、可移植的镜像，确保了从开发到生产的全流程一致性。与传统虚拟机相比，Docker容器具备秒级启动的资源效率，结合编排工具可轻松实现服务的弹性伸缩。同时，其内置的版本控制机制和跨平台特性，使得应用更新、回滚和迁移变得简单高效。这些特性使得Docker成为现代应用部署，特别是像Bert模型服务这类对环境敏感、资源需求动态变化的AI应用部署的理想选择。
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Docker架构}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{src/docker架构图.png}
+    \caption{docker图标}
+\end{figure}
+
+\begin{itemize}
+\item \textbf{镜像（Image）}：镜像是Docker的静态模板，类似于软件的"安装包"或"模具"。它包含了运行一个应用所需的所有内容：代码、运行时环境、系统工具、库文件和配置。镜像本身是只读的，可以被多次使用来创建相同的容器环境。
+
+\item \textbf{容器（Container）}：容器是镜像的运行实例，就像根据模具制造出的具体"产品"。当你启动一个镜像时，Docker会为其创建一个可写的容器层，在这个隔离的环境中运行你的应用。容器是轻量级、可执行的独立单元，多个容器可以基于同一个镜像同时运行。
+
+\item \textbf{仓库（Repository）}：仓库是集中存储和分发Docker镜像的地方，类似于代码仓库。它分为两种类型：
+  \begin{itemize}
+  \item \textbf{官方仓库（Docker Hub）}：Docker官方提供的公共仓库，包含大量预构建的镜像（如Ubuntu、Python、MySQL等），用户可以从中拉取所需镜像到本地使用
+  \item \textbf{私人仓库}：用户自建的私有仓库，用于存储自己创建的定制化镜像，方便团队内部共享或在不同环境间部署同一镜像
+  \end{itemize}
+\end{itemize}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Docker基本命令} % 宁来写，黄来补
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{docker服务相关命令(daemon)}
+\begin{verbatim}
+# 启动
+systemctl start docker
+# 停止
+systemctl stop docker
+# 重启
+systemctl restart docker
+# 查看docker服务状态
+systemctl status docker
+# 设置开机启动docker服务!!!
+systemctl enable docker
+\end{verbatim}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{docker镜像相关命令(image)}
+\begin{verbatim}
+# 查看
+docker images
+# 搜索
+docker search redis
+# 下载(比如redis)
+docker pull redis # 最新
+docker pull redis:5.0 # 指定版本
+# 删除
+docker rmi (输入IMAGE ID)
+docker rmi redis:5.0
+docker rmi redis:latest
+\end{verbatim}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{docker容器相关命令(container)}
+\begin{verbatim}
+# 创建
+docker run -it --name c1 centos:7 /bin/bash
+# 退出
+exit
+# 查看容器
+docker ps # 当前容器
+docker ps -a # 所有容器
+# 关闭
+docker stop c2
+# 删除
+docker rm c1
+docker rm (其ID)
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Bert介绍} % 宁来写，黄来补
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{简述Transformer} % 宁来写，黄来补
+BERT（Bidirectional Encoder Representations from Transformers）是Google在2018年提出的预训练语言模型。它通过Transformer架构和掩码语言模型（MLM）任务，实现了深度的双向语言表征，在11项自然语言处理任务上取得了突破性成果。
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{简述Bert} % 宁来写，黄来补
+\subsection{Transformer架构简述}
+
+Transformer是完全基于自注意力机制的序列转换模型，主要特点包括：
+\begin{itemize}
+\item \textbf{自注意力机制}：计算输入序列中每个位置与其他位置的关联权重
+\item \textbf{位置编码}：通过正弦函数为输入序列添加位置信息
+\item \textbf{多头注意力}：并行运行多个自注意力机制，捕获不同类型的依赖关系
+\item \textbf{前馈神经网络}：对每个位置进行独立的线性变换和非线性激活
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bert模型简述}
+
+BERT的核心创新点包括：
+\begin{itemize}
+\item \textbf{双向编码}：通过掩码语言模型同时利用上下文信息
+\item \textbf{预训练+微调}：先在大型语料库上预训练，再针对特定任务微调
+\item \textbf{多任务学习}：结合MLM和下一句预测（NSP）两个预训练任务
+\item \textbf{模型变体}：提供Base（12层）和Large（24层）等不同规模的模型
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{实验环境搭建} 
